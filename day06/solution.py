@@ -38,8 +38,7 @@ def signal_sequence_generator(line: str, window_size: int) -> Generator[SignalSe
 
 
 def main():
-    assert so
-    lve(file_to_lines('test_input.txt'), 4) == [7, 5, 6, 10, 11]
+    assert solve(file_to_lines('test_input.txt'), 4) == [7, 5, 6, 10, 11]
     print(solve(file_to_lines('puzzle_input.txt'), 4))
 
     assert solve(file_to_lines('test_input.txt'), 14) == [19, 23, 23, 29, 26]
