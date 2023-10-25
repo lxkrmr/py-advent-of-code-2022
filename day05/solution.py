@@ -1,4 +1,4 @@
-from utils.utils import file_to_str
+from lib.utils import file_to_str
 from dataclasses import dataclass
 
 

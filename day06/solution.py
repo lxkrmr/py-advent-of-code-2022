@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Generator
 
-from utils.utils import file_to_lines
+from lib.utils import file_to_lines
 
 
 @dataclass(frozen=True)

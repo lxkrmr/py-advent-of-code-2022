@@ -1,4 +1,4 @@
-from utils.utils import file_to_lines
+from lib.utils import file_to_lines
 from dataclasses import dataclass
 
 
