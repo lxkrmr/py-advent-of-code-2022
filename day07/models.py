@@ -62,6 +62,9 @@ class FlatFileSystem:
     def list_directories(self) -> list[Directory]:
         return [*self.register.values()]
 
+    def root(self):
+        return self.register.get(Directory.ROOT)
+
     def _get_or_create(self, directory_name: str) -> Directory:
         directory = self._get_directory(directory_name)
         if directory is None:

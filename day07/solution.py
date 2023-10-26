@@ -48,17 +48,42 @@ class CommandLineParser:
 def part_one(lines: list[str]) -> int:
     command_line_parser = CommandLineParser()
     command_line_parser.parse(lines)
+    return sum(
+        [
+            directory.size()
+            for directory
+            in command_line_parser.filesystem.list_directories()
+            if directory.size() < 100_000
+        ]
+    )
 
-    for directory in command_line_parser.filesystem.list_directories():
-        print(f'Name: {directory.name} size: {directory.size()}')
 
-    return sum([directory.size() for directory in command_line_parser.filesystem.list_directories() if directory.size() < 100_000])
+def part_two(lines: list[str]) -> int:
+    command_line_parser = CommandLineParser()
+    command_line_parser.parse(lines)
+
+    total_disk_space = 70_000_000
+    used_space = command_line_parser.filesystem.root().size()
+    total_space_needed_for_update = 30_000_000
+    unused_space = total_disk_space - used_space
+    additional_space_needed_for_update = total_space_needed_for_update - unused_space
+
+    return min(
+        [
+            directory.size()
+            for directory
+            in command_line_parser.filesystem.list_directories()
+            if directory.size() >= additional_space_needed_for_update
+        ]
+    )
 
 
 def main():
     assert part_one(file_to_lines('test_input.txt')) == 95437
     print(part_one(file_to_lines('puzzle_input.txt')))
 
+    assert part_two(file_to_lines('test_input.txt')) == 24933642
+    print(part_two(file_to_lines('puzzle_input.txt')))
 
 if __name__ == '__main__':
     main()
