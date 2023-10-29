@@ -63,40 +63,25 @@ class Tail:
         delta_x = head_x - self._x
         delta_y = head_y - self._y
 
-        if delta_x == 2 and delta_y == 1:
-            self._x += 1
-            self._y += 1
-        elif delta_x == 1 and delta_y == 2:
-            self._x += 1
-            self._y += 1
-        elif delta_x == 2 and delta_y == -1:
-            self._x += 1
-            self._y -= 1
-        elif delta_x == 1 and delta_y == -2:
-            self._x += 1
-            self._y -= 1
-        elif delta_x == -2 and delta_y == -1:
-            self._x -= 1
-            self._y -= 1
-        elif delta_x == -1 and delta_y == -2:
-            self._x -= 1
-            self._y -= 1
-        elif delta_x == -1 and delta_y == 2:
-            self._x -= 1
-            self._y += 1
-        elif delta_x == -2 and delta_y == 1:
-            self._x -= 1
-            self._y += 1
-        elif delta_x == 2:
-            self._x += 1
-        elif delta_x == -2:
-            self._x -= 1
-        elif delta_y == 2:
-            self._y += 1
-        elif delta_y == -2:
-            self._y -= 1
+        self._x += self._calculate_x_movement(delta_x, delta_y)
+        self._y += self._calculate_y_movement(delta_x, delta_y)
 
         self._positions.add(self.coords())
+
+    def _calculate_x_movement(self, delta_x, delta_y) -> int:
+        return self._calculate_movement(delta_x, delta_y)
+
+    def _calculate_y_movement(self, delta_x, delta_y) -> int:
+        return self._calculate_movement(delta_y, delta_x)
+
+    @staticmethod
+    def _calculate_movement(primary_delta, secondary_delta) -> int:
+        if abs(primary_delta) % 2 == 0:
+            return primary_delta / 2
+        elif abs(primary_delta) == 1 and abs(secondary_delta) == 2:
+            return primary_delta
+        else:
+            return 0
 
 
 class Rope:
