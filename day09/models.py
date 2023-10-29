@@ -63,16 +63,28 @@ class Tail:
         delta_x = head_x - self._x
         delta_y = head_y - self._y
 
-        if (delta_x == 2 and delta_y == 1) or (delta_x == 1 and delta_y == 2):
+        if delta_x == 2 and delta_y == 1:
             self._x += 1
             self._y += 1
-        elif (delta_x == 2 and delta_y == -1) or (delta_x == 1 and delta_y == -2):
+        elif delta_x == 1 and delta_y == 2:
+            self._x += 1
+            self._y += 1
+        elif delta_x == 2 and delta_y == -1:
             self._x += 1
             self._y -= 1
-        elif (delta_x == -2 and delta_y == -1) or (delta_x == -1 and delta_y == -2):
+        elif delta_x == 1 and delta_y == -2:
+            self._x += 1
+            self._y -= 1
+        elif delta_x == -2 and delta_y == -1:
             self._x -= 1
             self._y -= 1
-        elif (delta_x == -1 and delta_y == 2) or (delta_x == -2 and delta_y == 1):
+        elif delta_x == -1 and delta_y == -2:
+            self._x -= 1
+            self._y -= 1
+        elif delta_x == -1 and delta_y == 2:
+            self._x -= 1
+            self._y += 1
+        elif delta_x == -2 and delta_y == 1:
             self._x -= 1
             self._y += 1
         elif delta_x == 2:
