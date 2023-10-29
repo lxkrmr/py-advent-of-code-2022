@@ -46,7 +46,7 @@ class Head:
                 self._y -= 1
 
 
-class Tail:
+class TailSegment:
     def __init__(self):
         self._x = 0
         self._y = 0
@@ -58,10 +58,17 @@ class Tail:
     def num_positions_visited(self) -> int:
         return len(self._positions)
 
-    def move(self, head: Head) -> None:
+    def follow_head(self, head: Head) -> None:
         head_x, head_y = head.coords()
-        delta_x = head_x - self._x
-        delta_y = head_y - self._y
+        self._follow(head_x, head_y)
+
+    def follow_tail(self, tail: 'TailSegment') -> None:
+        tail_x, tail_y = tail.coords()
+        self._follow(tail_x, tail_y)
+
+    def _follow(self, x_to_follow: int, y_to_follow: int):
+        delta_x = x_to_follow - self._x
+        delta_y = y_to_follow - self._y
 
         self._x += self._calculate_x_movement(delta_x, delta_y)
         self._y += self._calculate_y_movement(delta_x, delta_y)
@@ -86,11 +93,22 @@ class Tail:
 
 class Rope:
 
-    def __init__(self):
+    def __init__(self, numer_of_knots: int = 2):
         self.head = Head()
-        self.tail = Tail()
+        self.tail = [TailSegment() for _ in range(0, numer_of_knots - 1)]
 
     def move(self, motion: Motion) -> None:
         for _ in range(0, motion.times):
             self.head.move(motion.direction)
-            self.tail.move(self.head)
+            self._move_tail()
+
+    def _move_tail(self):
+        first = self.tail[0]
+        first.follow_head(self.head)
+        prev = first
+        for tail in self.tail[1:]:
+            tail.follow_tail(prev)
+            prev = tail
+
+    def tip_of_the_tail(self):
+        return self.tail[-1]
